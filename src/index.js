@@ -1,10 +1,9 @@
 const express = require("express");
 const userRouter = require("./routes/users");
 const app = express();
+const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
 app.use("/users", userRouter);
-app.use("/", (req, res) => {
-  res.send("halooo");
-});
 
-app.listen(3000, () => console.log("Server berjalan di http://localhost:3000"));
+app.listen(PORT, () => console.log(`Server berjalan di http://localhost:${PORT}`));
