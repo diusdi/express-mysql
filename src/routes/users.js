@@ -10,17 +10,7 @@ router.get("/docs", swaggerUi.setup(swaggerDocument));
 
 router.get("/", userController.getAll);
 router.post("/", userController.create);
-
-// router.put("/", (req, res) => {
-//   res.json({
-//     message: "PUT USER SUKSES",
-//   });
-// });
-
-// router.delete("/", (req, res) => {
-//   res.json({
-//     message: "DELETE USER SUKSES",
-//   });
-// });
+router.put("/:id", userController.update);
+router.delete("/:id", userController.destroy);
 
 module.exports = router;

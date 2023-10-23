@@ -15,12 +15,51 @@ const getAll = async (req, res) => {
   }
 };
 
-const create = (req, res) => {
-  console.log(req.body);
-  res.json({
-    message: "CREATE USER",
-    data: req.body,
-  });
+const create = async (req, res) => {
+  const { body } = req;
+
+  try {
+    await UserModel.create(body);
+    res.status(201).json({
+      message: "create new user success",
+      data: body,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "server error",
+      "server message": error,
+    });
+  }
 };
 
-module.exports = { getAll, create };
+const update = async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+  try {
+    await UserModel.update(body, id);
+    res.status(201).json({
+      message: "update user success",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "server error",
+      "server message": error,
+    });
+  }
+};
+
+const destroy = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await UserModel.destroy(id);
+    res.status(200).json({
+      message: "delete user success",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "server error",
+      "server message": error,
+    });
+  }
+};
+module.exports = { getAll, create, update, destroy };
